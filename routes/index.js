@@ -4,6 +4,7 @@ const config = require('config')
 const AWS = require('aws-sdk');
 const request = require('request')
 const { exec } = require('child_process');
+const util = require('util')
     // AWS.config.update({
     //     accessKeyId: config.get('aws.access_key_id'),
     //     secretAccessKey: config.get('aws.secret_access_key'),
@@ -87,6 +88,7 @@ router.get('/namespaces', async function(req, res, next) {
 
 router.post('/pod-bash', function(req, res, next) {
   const cmd = req.body.cmd;
+  console.log('cmd is %s',util.inspect(req.body))
   exec(cmd, (err, stdout, stderr) => {
     if (err) {
       // node couldn't execute the command
